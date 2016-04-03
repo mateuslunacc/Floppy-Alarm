@@ -42,10 +42,10 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.content_main_row, null);
         }
-        TextView listItemText = (TextView) view.findViewById(R.id.textView);
+        TextView listItemText = (TextView) view.findViewById(R.id.txt_alarmlbl);
         listItemText.setText(list.get(position));
 
-        Button switchBtn = (Button) view.findViewById(R.id.switch1);
+        Button switchBtn = (Button) view.findViewById(R.id.swi_repeat);
 
         return view;
     }

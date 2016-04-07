@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         listView.setAdapter(adapter);
-
     }
+
+    //java do time picker
+    private TimePicker tPkr_TimePicker;
+    private Button btn_timeConfirm;
+    private Button btn_timeCancel;
+
+    public void timeCancel() {}; //funcao para cancelar a escolha do tempo
+    public void timeConfirm() {}; //funcao para confirmar a escolha do tempo
+
 }

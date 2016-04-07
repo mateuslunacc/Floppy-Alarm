@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dayRadioGroup" >
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="Every day"
+        android:id="@+id/everyDayButton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="Week days"
+        android:id="@+id/weekDaysButton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="Weekends"
+        android:id="@+id/weekendButton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="Select days"
+        android:id="@+id/selectDaysButton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    </RadioGroup>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutDay">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mon"
+            android:id="@+id/mondayCheckbox"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tuesdayCheckbox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:enabled="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tues"
+            android:id="@+id/tuesdayCheckbox"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:enabled="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wed"
+            android:id="@+id/wednesdayCheckbox"
+            android:layout_below="@+id/mondayCheckbox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/thursdayCheckbox"
+            android:layout_toStartOf="@+id/thursdayCheckbox"
+            android:enabled="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="thu"
+            android:id="@+id/thursdayCheckbox"
+            android:layout_below="@+id/tuesdayCheckbox"
+            android:layout_alignLeft="@+id/tuesdayCheckbox"
+            android:layout_alignStart="@+id/tuesdayCheckbox"
+            android:enabled="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fri"
+            android:id="@+id/fridayCheckbox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/thursdayCheckbox"
+            android:layout_toLeftOf="@+id/thursdayCheckbox"
+            android:layout_toStartOf="@+id/thursdayCheckbox"
+            android:enabled="false" />
+
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sat"
+            android:id="@+id/saturdayCheckbox"
+            android:layout_below="@+id/thursdayCheckbox"
+            android:layout_alignLeft="@+id/thursdayCheckbox"
+            android:layout_alignStart="@+id/thursdayCheckbox"
+            android:enabled="false" />
+
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sun"
+            android:id="@+id/sundayCheckbox"
+            android:layout_below="@+id/fridayCheckbox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/saturdayCheckbox"
+            android:layout_toStartOf="@+id/saturdayCheckbox"
+            android:enabled="false" />
+
+    </RelativeLayout>
+
+</LinearLayout>

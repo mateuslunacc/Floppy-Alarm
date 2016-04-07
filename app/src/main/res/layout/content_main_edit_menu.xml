@@ -9,8 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.fab.myapplication.MainActivity"
-    tools:showIn="@layout/activity_main_editmenu">
+    tools:context="com.example.fab.myapplication.MainActivity">
 
     <TextView
         android:layout_width="fill_parent"
@@ -24,18 +23,20 @@
         android:clickable="true"
         android:textColor="#000000" />
 
-    <Switch
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Repeat"
-        android:id="@+id/swi_repeat"
+        android:id="@+id/txt_day"
         android:clickable="true"
         android:textColor="#000000"
         android:textSize="18dp"
         android:layout_below="@+id/txt_alarmlbl"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@+id/txt_timeContent"
+        android:layout_toStartOf="@+id/txt_timeContent" />
 
     <Switch
         android:layout_width="fill_parent"
@@ -46,7 +47,7 @@
         android:textSize="18dp"
         android:textColor="#000000"
         android:clickable="true"
-        android:layout_below="@+id/swi_repeat"
+        android:layout_below="@+id/txt_day"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="23dp" />
@@ -98,6 +99,14 @@
         android:text="HH:MM"
         android:id="@+id/txt_timeContent"
         android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swi_day"
+        android:layout_alignTop="@+id/txt_day"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

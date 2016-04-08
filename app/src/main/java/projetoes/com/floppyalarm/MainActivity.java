@@ -43,12 +43,4 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    //java do time picker
-    private TimePicker tPkr_TimePicker;
-    private Button btn_timeConfirm;
-    private Button btn_timeCancel;
-
-    public void timeCancel() {}; //funcao para cancelar a escolha do tempo
-    public void timeConfirm() {}; //funcao para confirmar a escolha do tempo
-
 }

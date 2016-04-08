@@ -15,8 +15,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RowAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Alarm> list;
-    private Context context;
+    private final ArrayList<Alarm> list;
+    private final Context context;
     private Alarm selectedAlarm;
 
     public RowAdapter(ArrayList<Alarm> list, Context context)

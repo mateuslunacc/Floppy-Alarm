@@ -13,8 +13,8 @@ public class alarmDisplay extends AppCompatActivity {
     private TextView txt_alarmTime;
     private TextView txt_alarmLabel;
 
-    public void snooze() {}; //funcao para ativar a soneca
-    public void puzzle() {}; //funcao para ativar o puzzle
+    public void snooze() {} //funcao para ativar a soneca
+    public void puzzle() {} //funcao para ativar o puzzle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

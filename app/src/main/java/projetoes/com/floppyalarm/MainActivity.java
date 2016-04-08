@@ -23,14 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Alarm alarmList;
     private RowAdapter adapter;
     private FloatingActionButton fab;
-    private int mYear, mMonth, mDay, mHour, mMinute;
-    public static final String PREFS_NAME = "ALARM_APP";
-    public static final String ALARM_LIST = "Alarm_List";
-    SharedPreferences sharedPreferences;
+    private static final String PREFS_NAME = "ALARM_APP";
+    private static final String ALARM_LIST = "Alarm_List";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, getApplicationContext().MODE_PRIVATE);
 
         //recuperar alarmes
         list = retrieveAlarms(getApplicationContext());
@@ -78,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Gson gson = new Gson();
         String jsonFavorites = gson.toJson(alarmList);
         editor.putString(ALARM_LIST, jsonFavorites);
-        editor.commit();
+        editor.apply();
     }
 
     //recuperar alarmes no sharedpreferences
-    public ArrayList<Alarm> retrieveAlarms(Context context) {
+    private ArrayList<Alarm> retrieveAlarms(Context context) {
         SharedPreferences settings;
         List<Alarm> alarms;
 
@@ -98,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alarms = Arrays.asList(alarmsList);
             alarms = new ArrayList<Alarm>(alarms);
         } else
-            return new ArrayList<Alarm>();;
+            return new ArrayList<Alarm>();
         return (ArrayList<Alarm>) alarms;
     }
 

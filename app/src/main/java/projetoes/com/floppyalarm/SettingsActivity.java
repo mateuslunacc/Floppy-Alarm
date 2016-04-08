@@ -10,7 +10,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        Alarm alarm = (Alarm) intent.getParcelableExtra("alarm");
+        Alarm alarm = intent.getParcelableExtra("alarm");
 
         int hour = alarm.getHour();
         int minute = alarm.getMinute();

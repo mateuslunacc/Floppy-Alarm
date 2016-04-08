@@ -12,8 +12,8 @@ public class selectTime extends AppCompatActivity {
     private Button btn_timeConfirm;
     private Button btn_timeCancel;
 
-    public void timeCancel() {}; //funcao para cancelar a escolha do tempo
-    public void timeConfirm() {}; //funcao para confirmar a escolha do tempo
+    public void timeCancel() {} //funcao para cancelar a escolha do tempo
+    public void timeConfirm() {} //funcao para confirmar a escolha do tempo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

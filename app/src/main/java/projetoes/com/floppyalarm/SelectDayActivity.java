@@ -8,8 +8,8 @@ import android.widget.RelativeLayout;
 
 public class SelectDayActivity extends AppCompatActivity {
 
-    final Integer FULL_WEEK = 7;
-    final Integer WEEK_DAYS = 5;
+    private final Integer FULL_WEEK = 7;
+    private final Integer WEEK_DAYS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

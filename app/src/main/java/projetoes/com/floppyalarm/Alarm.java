@@ -47,7 +47,7 @@ public class Alarm implements Parcelable {
         return this.hour;
     }
 
-    protected Alarm(Parcel in) {
+    private Alarm(Parcel in) {
         label = in.readString();
         vibrate = in.readByte() != 0x00;
         hour = in.readInt();

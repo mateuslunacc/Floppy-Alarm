@@ -15,24 +15,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RowAdapter extends BaseAdapter implements ListAdapter {
-    private final ArrayList<Alarm> list;
-    private final Context context;
+    private ArrayList<Alarm> alarmList;
+    private Context context;
     private Alarm selectedAlarm;
 
-    public RowAdapter(ArrayList<Alarm> list, Context context)
+    public RowAdapter(ArrayList<Alarm> alarmList, Context context)
     {
-        this.list = list;
+        this.alarmList = alarmList;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return alarmList.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return list.get(pos);
+        return alarmList.get(pos);
     }
 
     @Override
@@ -52,16 +52,18 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemText = (TextView) view.findViewById(R.id.txt_alarmlbl);
         TextView textTime = (TextView) view.findViewById(R.id.txt_timelbl);
 
+        //recupera e formata horário de alarme
         int hour = selectedAlarm.getHour();
         int minute = selectedAlarm.getMinute();
         String time = String.format("%02d:%02d", hour, minute);
 
-
+        //mostra o horário de cada alarme abaixo de seu label
         listItemText.setText(selectedAlarm.getLabel());
         listItemText.setTag(Integer.valueOf(position));
         textTime.setText(time);
         textTime.setTag(Integer.valueOf(position));
 
+        //passa informações do alarme para a tela de settings
         listItemText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,10 +71,12 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                 selectedAlarm = (Alarm) getItem(realPosition);
                 Intent intent = new Intent(context, SettingsActivity.class);
                 intent.putExtra("alarm", selectedAlarm);
+                intent.putExtra("alarmPosition", realPosition);
                 context.startActivity(intent);
             }
         });
 
+        //quando o usuário clica por um tempo no alarme aparece a opção de deletar
         listItemText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View v) {
@@ -83,7 +87,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Integer realPosition = (Integer) v.getTag();
-                                list.remove(getItem(realPosition));
+                                alarmList.remove(getItem(realPosition));
                                 Toast toast = Toast.makeText(context, "Alarm deleted", Toast.LENGTH_SHORT);
                                 toast.show();
                                 notifyDataSetChanged();

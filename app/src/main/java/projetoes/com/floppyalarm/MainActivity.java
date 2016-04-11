@@ -42,16 +42,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v == fab) {
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
+                        boolean firstShown = true;
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-                            alarm = new Alarm();
-                            alarm.setTime(hourOfDay, minute);
-                            alarmList.add(alarm);
-                            PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
-                            adapter.notifyDataSetChanged();
-                            Toast toast = Toast.makeText(getApplicationContext(), "Alarm added", Toast.LENGTH_SHORT);
-                            toast.show();
+                            if(firstShown) {
+                                firstShown = false;
+                                alarm = new Alarm();
+                                alarm.setTime(hourOfDay, minute);
+                                alarmList.add(alarm);
+                                PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+                                adapter.notifyDataSetChanged();
+                                Toast toast = Toast.makeText(getApplicationContext(), "Alarm added", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         }
                     }, 0, 0, true);
             timePickerDialog.show();

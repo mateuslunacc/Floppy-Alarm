@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import projetoes.com.floppyalarm.utils.PersistenceManager;
+
 public class RowAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Alarm> alarmList;
     private Context context;
@@ -89,6 +91,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                                 Integer realPosition = (Integer) v.getTag();
                                 alarmList.remove(getItem(realPosition));
                                 Toast toast = Toast.makeText(context, "Alarm deleted", Toast.LENGTH_SHORT);
+                                PersistenceManager.saveAlarms(context, alarmList);
                                 toast.show();
                                 notifyDataSetChanged();
                             }

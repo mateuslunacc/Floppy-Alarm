@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Alarm implements Parcelable {
+    private boolean active;
     private String label;
     private boolean vibrate;
     private int hour;
@@ -12,14 +13,27 @@ public class Alarm implements Parcelable {
 
     public Alarm() {
         this.label = "Alarm";
+        this.active = false;
         this.vibrate = false;
         this.minute = 0;
         this.hour = 0;
         this.timeDay = "";
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
     public void setVibrate(boolean vibrate) {
         this.vibrate = vibrate;
+    }
+
+    public boolean isVibrate() {
+        return vibrate;
     }
 
     public void setLabel(String newLabel) {
@@ -28,10 +42,6 @@ public class Alarm implements Parcelable {
 
     public String getLabel() {
         return this.label;
-    }
-
-    public boolean isVibrate() {
-        return vibrate;
     }
 
     public void setTime(int hour, int minute) {
@@ -49,6 +59,7 @@ public class Alarm implements Parcelable {
 
     private Alarm(Parcel in) {
         label = in.readString();
+        active = in.readByte() != 0x00;
         vibrate = in.readByte() != 0x00;
         hour = in.readInt();
         minute = in.readInt();
@@ -62,6 +73,7 @@ public class Alarm implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(label);
+        dest.writeByte((byte) (active ? 0x01 : 0x00));
         dest.writeByte((byte) (vibrate ? 0x01 : 0x00));
         dest.writeInt(hour);
         dest.writeInt(minute);

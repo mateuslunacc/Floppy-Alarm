@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Alarm> alarmList;
     private Context context;
     private Alarm selectedAlarm;
+    private Switch swiActive;
 
     public RowAdapter(ArrayList<Alarm> alarmList, Context context)
     {
@@ -53,6 +55,11 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         }
         TextView listItemText = (TextView) view.findViewById(R.id.txt_alarmlbl);
         TextView textTime = (TextView) view.findViewById(R.id.txt_timelbl);
+        swiActive = (Switch) view.findViewById(R.id.swi_active);
+
+        //carrega o estado de ativo do switch
+        swiActive.setChecked(selectedAlarm.isActive());
+        swiActive.setTag(Integer.valueOf(position));
 
         //recupera e formata horário de alarme
         int hour = selectedAlarm.getHour();
@@ -101,6 +108,20 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                 return true;
             }
         });
+
+        swiActive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer realPosition = (Integer) v.getTag();
+                selectedAlarm = (Alarm) getItem(realPosition);
+                boolean status = selectedAlarm.isActive();
+                swiActive.setChecked(!status);
+                selectedAlarm.setActive(!status);
+                PersistenceManager.saveAlarms(context, alarmList);
+                notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 }

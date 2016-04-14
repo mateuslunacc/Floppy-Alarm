@@ -50,7 +50,7 @@
         android:layout_below="@+id/txt_day"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="23dp" />
+        android:layout_marginTop="25dp" />
 
     <Switch
         android:layout_width="fill_parent"
@@ -64,7 +64,7 @@
         android:layout_below="@+id/swi_vibrate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="25dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -77,20 +77,20 @@
         android:layout_below="@+id/swi_puzzle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="25dp" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Soneca"
-        android:id="@+id/txt_soneca"
+        android:text="Snooze"
+        android:id="@+id/txt_snooze"
         android:textColor="#000000"
         android:clickable="true"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/txt_ringtone"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,5 +109,14 @@
         android:layout_alignTop="@+id/txt_day"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swi_snooze"
+        android:layout_alignTop="@+id/txt_snooze"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
 
 </RelativeLayout>

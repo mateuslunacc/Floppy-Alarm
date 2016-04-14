@@ -7,6 +7,9 @@ public class Alarm implements Parcelable {
     private boolean active;
     private String label;
     private boolean vibrate;
+    //conferir
+    private boolean snooze;
+    private boolean puzzle;
     private int hour;
     private int minute;
     private String timeDay;
@@ -15,6 +18,9 @@ public class Alarm implements Parcelable {
         this.label = "Alarm";
         this.active = false;
         this.vibrate = false;
+        //conferir
+        this.puzzle = false;
+        this.snooze = false;
         this.minute = 0;
         this.hour = 0;
         this.timeDay = "";
@@ -28,6 +34,23 @@ public class Alarm implements Parcelable {
         return active;
     }
 
+    public void setPuzzle(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isPuzzle() {
+        return active;
+    }
+
+    public void setSnooze(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isSnooze() {
+        return active;
+    }
+
+    //conferir
     public void setVibrate(boolean vibrate) {
         this.vibrate = vibrate;
     }
@@ -61,6 +84,8 @@ public class Alarm implements Parcelable {
         label = in.readString();
         active = in.readByte() != 0x00;
         vibrate = in.readByte() != 0x00;
+        puzzle = in.readByte() != 0x00;
+        snooze = in.readByte() != 0x00;
         hour = in.readInt();
         minute = in.readInt();
     }
@@ -75,6 +100,9 @@ public class Alarm implements Parcelable {
         dest.writeString(label);
         dest.writeByte((byte) (active ? 0x01 : 0x00));
         dest.writeByte((byte) (vibrate ? 0x01 : 0x00));
+        //conferir
+        dest.writeByte((byte) (puzzle ? 0x01 : 0x00));
+        dest.writeByte((byte) (snooze ? 0x01 : 0x00));
         dest.writeInt(hour);
         dest.writeInt(minute);
     }

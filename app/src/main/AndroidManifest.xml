@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".SelectDayActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".alarmDisplay"></activity>
+        <activity android:name=".alarmDisplay">
+            <uses-permission android:name="android.permission.VIBRATE"/>
+        </activity>
     </application>
 
 </manifest>

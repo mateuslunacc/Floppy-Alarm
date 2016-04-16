@@ -21,8 +21,9 @@
         <activity android:name=".SelectDayActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".alarmDisplay">
-            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.VIBRATE" />
         </activity>
+        <activity android:name=".WakeUpActivity"></activity>
     </application>
 
 </manifest>

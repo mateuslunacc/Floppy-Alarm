@@ -11,6 +11,7 @@ public class Alarm implements Parcelable {
     private String label;
     private boolean vibrate;
     private boolean snooze;
+    private boolean repeat;
     private boolean puzzle;
     private int hour;
     private int minute;
@@ -39,6 +40,14 @@ public class Alarm implements Parcelable {
 
     public void setVibrate(boolean vibrate) {
         this.vibrate = vibrate;
+    }
+
+    public boolean isRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
     }
 
     public boolean isSnooze() {
@@ -91,6 +100,7 @@ public class Alarm implements Parcelable {
         this.label = "Alarm";
         this.vibrate = false;
         this.snooze = false;
+        this.repeat = false;
         this.puzzle = false;
         this.hour = 0;
         this.minute = 0;
@@ -103,6 +113,7 @@ public class Alarm implements Parcelable {
         label = in.readString();
         vibrate = in.readByte() != 0x00;
         snooze = in.readByte() != 0x00;
+        repeat = in.readByte() != 0x00;
         puzzle = in.readByte() != 0x00;
         hour = in.readInt();
         minute = in.readInt();
@@ -121,6 +132,7 @@ public class Alarm implements Parcelable {
         dest.writeString(label);
         dest.writeByte((byte) (vibrate ? 0x01 : 0x00));
         dest.writeByte((byte) (snooze ? 0x01 : 0x00));
+        dest.writeByte((byte) (repeat ? 0x01 : 0x00));
         dest.writeByte((byte) (puzzle ? 0x01 : 0x00));
         dest.writeInt(hour);
         dest.writeInt(minute);

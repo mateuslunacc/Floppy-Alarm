@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.Arrays;
 import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
@@ -27,6 +28,7 @@ import static android.media.RingtoneManager.*;
 public class SettingsActivity extends AppCompatActivity {
     private Alarm alarm;
     private List<Alarm> alarmList;
+    private List<Integer> repeatDays;
     private Integer alarmPosition;
     private TextView dayText;
     private TextView timeText;
@@ -37,6 +39,8 @@ public class SettingsActivity extends AppCompatActivity {
     boolean is24h;
     private TextView labelButton;
     private TextView labelText;
+    private Switch switchRepeat;
+    private TextView repeatDaysText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //carrega alarme passado pelo RowAdapter e sua posição da lista de alarmes
         alarm = intent.getParcelableExtra("alarm");
+        repeatDays = alarm.getSelectedDays();
         alarmPosition = (Integer) intent.getExtras().get("alarmPosition");
 
         //carrega status de vibrate e exibe na activity
@@ -76,6 +81,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         //texto botão para a repetição de dias
         dayText = (TextView) findViewById(R.id.txt_day);
+        switchRepeat = (Switch) findViewById(R.id.swi_day);
+        repeatDaysText = (TextView) findViewById(R.id.txt_repeatdays);
+        switchRepeat.setChecked(alarm.isRepeat());
+
+        //checa estado dos dias repetidos
+        loadRepeatedDays();
 
         //estado de Vibrate é mudado na activity e salvo no sharedpreferences
         isVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -124,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                if(firstShown) {
+                                if (firstShown) {
                                     firstShown = false;
                                     alarm.setTime(hourOfDay, minute);
                                     alarm.setActive(true);
@@ -166,6 +177,17 @@ public class SettingsActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+
+        switchRepeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean status = alarm.isRepeat();
+                switchRepeat.setChecked(!status);
+                alarm.setRepeat(!status);
+                alarmList.set(alarmPosition, alarm);
+                PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+            }
+        });
     }
 
     //confere o resultado do ringtone e seta no alarme
@@ -190,7 +212,35 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onRestart() {
         alarmList = PersistenceManager.retrieveAlarms(getApplicationContext());
         alarm = alarmList.get(alarmPosition);
+        loadRepeatedDays();
         super.onRestart();
+    }
+
+
+    private void loadRepeatedDays() {
+        String tempString = "";
+        String[] days = {"mon", "tues", "wed", "thu", "fri", "sat", "sun"};
+        repeatDays = alarm.getSelectedDays();
+        if (repeatDays.size() > 0) {
+            switchRepeat.setChecked(alarm.isRepeat());
+            switchRepeat.setEnabled(true);
+            tempString = "";
+            for (int i : repeatDays) {
+                tempString = tempString.concat(days[i]) + " ";
+            } if (repeatDays.size() == 7) {
+                tempString = "Full week";
+            } else if (repeatDays.size() == 2 && repeatDays.contains(5) && repeatDays.contains(6)) {
+                tempString = "Weekend";
+            } else if (repeatDays.size() == 5 && repeatDays.containsAll(Arrays.asList(new Integer[]{0,1,2,3,4}))) {
+                tempString = "Week days";
+            }
+            repeatDaysText.setText(tempString);
+        } else {
+            tempString = "";
+            repeatDaysText.setText(tempString);
+            switchRepeat.setChecked(false);
+            switchRepeat.setEnabled(false);
+        }
     }
 
 }

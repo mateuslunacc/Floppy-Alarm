@@ -15,6 +15,7 @@ public class Alarm implements Parcelable {
     private int hour;
     private int minute;
     private List<Integer> selectedDays;
+    private String ringtoneUriString;
 
     public boolean isActive() {
         return active;
@@ -77,6 +78,14 @@ public class Alarm implements Parcelable {
         this.selectedDays = selectedDays;
     }
 
+    public String getRingtoneUriString() {
+        return ringtoneUriString;
+    }
+
+    public void setRingtoneUriString(String ringtoneUriString) {
+        this.ringtoneUriString = ringtoneUriString;
+    }
+
     public Alarm() {
         this.active = false;
         this.label = "Alarm";
@@ -86,6 +95,7 @@ public class Alarm implements Parcelable {
         this.hour = 0;
         this.minute = 0;
         this.selectedDays = new ArrayList<Integer>();
+        this.ringtoneUriString = "";
     }
 
     protected Alarm(Parcel in) {
@@ -97,6 +107,7 @@ public class Alarm implements Parcelable {
         hour = in.readInt();
         minute = in.readInt();
         selectedDays = in.readArrayList(null);
+        ringtoneUriString = in.readString();
     }
 
     @Override
@@ -114,6 +125,7 @@ public class Alarm implements Parcelable {
         dest.writeInt(hour);
         dest.writeInt(minute);
         dest.writeList(selectedDays);
+        dest.writeString(ringtoneUriString);
     }
 
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {

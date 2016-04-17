@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -113,10 +112,10 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
             }
         });
 
-        swiActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swiActive.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Integer realPosition = (Integer) buttonView.getTag();
+            public void onClick(View v) {
+                Integer realPosition = (Integer) v.getTag();
                 selectedAlarm = (Alarm) getItem(realPosition);
                 boolean status = selectedAlarm.isActive();
                 swiActive.setChecked(!status);
@@ -125,7 +124,6 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                 notifyDataSetChanged();
             }
         });
-
         return view;
     }
 }

@@ -1,8 +1,12 @@
 package projetoes.com.floppyalarm;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -11,11 +15,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
+
+import static android.media.RingtoneManager.*;
 
 public class SettingsActivity extends AppCompatActivity {
     private Alarm alarm;
@@ -27,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView ringtone;
     private TextView ringtoneName;
     private String formattedTime;
-    private boolean is24h;
+    boolean is24h;
     private TextView labelButton;
     private TextView labelText;
 
@@ -54,6 +61,13 @@ public class SettingsActivity extends AppCompatActivity {
         timeText = (TextView) findViewById(R.id.txt_timeContent);
         formattedTime = TimeStringFormat.formataString(alarm.getHour(), alarm.getMinute(), is24h);
         timeText.setText(formattedTime);
+
+        //carrega nome do Ringtone atual
+        Ringtone tempRing = RingtoneManager.getRingtone(this, Uri.parse(alarm.getRingtoneUriString()));
+        String title = tempRing.getTitle(this);
+        ringtoneName = (TextView) findViewById(R.id.ringtoneName);
+        ringtoneName.setText(title);
+        ringtone = (TextView) findViewById(R.id.txt_ringtone);
 
         //carrega nome e caixa para modificar nome
         labelButton = (TextView) findViewById(R.id.txt_label);
@@ -86,6 +100,47 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //abre escolha de ringtone
+        ringtone.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final Uri currentTone = getActualDefaultRingtoneUri(SettingsActivity.this, TYPE_ALARM);
+                Intent intent = new Intent(ACTION_RINGTONE_PICKER);
+                intent.putExtra(EXTRA_RINGTONE_TYPE, TYPE_ALARM);
+                intent.putExtra(EXTRA_RINGTONE_TITLE, "Select Tone");
+                intent.putExtra(EXTRA_RINGTONE_EXISTING_URI, currentTone);
+                intent.putExtra(EXTRA_RINGTONE_SHOW_SILENT, false);
+                intent.putExtra(EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                startActivityForResult(intent, 5);
+            }
+        });
+
+        //abre timepicker para mudança de horário
+        timeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            boolean firstShown = true;
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                if(firstShown) {
+                                    firstShown = false;
+                                    alarm.setTime(hourOfDay, minute);
+                                    alarm.setActive(true);
+                                    alarmList.set(alarmPosition, alarm);
+                                    PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+                                    formattedTime = TimeStringFormat.formataString(hourOfDay, minute, is24h);
+                                    timeText = (TextView) findViewById(R.id.txt_timeContent);
+                                    timeText.setText(formattedTime);
+                                }
+                            }
+                        }, 0, 0, is24h);
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
+
         labelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +166,24 @@ public class SettingsActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    //confere o resultado do ringtone e seta no alarme
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
+            String title = ringtone.getTitle(this);
+            ringtoneName.setText(title);
+            alarm.setRingtoneUriString(uri.toString());
+            alarmList.set(alarmPosition, alarm);
+            PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+            if (uri != null) {
+                String ringTonePath = uri.toString();
+            }
+        }
     }
 
     @Override

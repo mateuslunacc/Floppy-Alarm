@@ -2,6 +2,7 @@ package projetoes.com.floppyalarm;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 firstShown = false;
                                 alarm = new Alarm();
                                 alarm.setTime(hourOfDay, minute);
+                                alarm.setRingtoneUriString(Settings.System.DEFAULT_RINGTONE_URI.toString());
                                 alarmList.add(alarm);
                                 PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
                                 adapter.notifyDataSetChanged();

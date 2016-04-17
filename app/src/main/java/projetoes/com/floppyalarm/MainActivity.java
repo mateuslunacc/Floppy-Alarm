@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -19,9 +20,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Alarm alarm;
     private RowAdapter adapter;
     private FloatingActionButton fab;
+    private boolean is24h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        is24h = DateFormat.is24HourFormat(MainActivity.this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 toast.show();
                             }
                         }
-                    }, 0, 0, true);
+                    }, 0, 0, is24h);
             timePickerDialog.show();
         }
     }

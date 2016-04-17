@@ -4,26 +4,30 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
+import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
 public class RowAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Alarm> alarmList;
+    private List<Alarm> alarmList;
     private Context context;
     private Alarm selectedAlarm;
     private Switch swiActive;
+    private String time;
 
-    public RowAdapter(ArrayList<Alarm> alarmList, Context context)
+    public RowAdapter(List<Alarm> alarmList, Context context)
     {
         this.alarmList = alarmList;
         this.context = context;
@@ -62,9 +66,9 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         swiActive.setTag(Integer.valueOf(position));
 
         //recupera e formata horário de alarme
-        int hour = selectedAlarm.getHour();
-        int minute = selectedAlarm.getMinute();
-        String time = String.format("%02d:%02d", hour, minute);
+        //carrega tempo do alarme e exibe na activity
+        boolean is24h = DateFormat.is24HourFormat(context);
+        time = TimeStringFormat.formataString(selectedAlarm.getHour(), selectedAlarm.getMinute(), is24h);
 
         //mostra o horário de cada alarme abaixo de seu label
         listItemText.setText(selectedAlarm.getLabel());
@@ -109,10 +113,10 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
             }
         });
 
-        swiActive.setOnClickListener(new View.OnClickListener() {
+        swiActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Integer realPosition = (Integer) v.getTag();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer realPosition = (Integer) buttonView.getTag();
                 selectedAlarm = (Alarm) getItem(realPosition);
                 boolean status = selectedAlarm.isActive();
                 swiActive.setChecked(!status);
@@ -125,4 +129,3 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 }
-

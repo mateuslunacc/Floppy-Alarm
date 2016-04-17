@@ -21,7 +21,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:clickable="true"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:layout_alignBottom="@+id/txt_timeContent" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -35,8 +36,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="25dp"
-        android:layout_toLeftOf="@+id/txt_timeContent"
-        android:layout_toStartOf="@+id/txt_timeContent" />
+        android:layout_toStartOf="@+id/swi_day"
+        android:layout_toLeftOf="@+id/swi_day" />
 
     <Switch
         android:layout_width="fill_parent"
@@ -114,9 +115,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/swi_snooze"
+        android:checked="false"
         android:layout_alignTop="@+id/txt_snooze"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:checked="false" />
+        android:layout_alignRight="@+id/txt_snooze"
+        android:layout_alignEnd="@+id/txt_snooze" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/ringtoneName"
+        android:layout_below="@+id/txt_ringtone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Label"
+        android:id="@+id/txt_label"
+        android:clickable="true"
+        android:textColor="#000000"
+        android:layout_below="@+id/swi_snooze"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/txt_labelview"
+        android:layout_below="@+id/txt_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

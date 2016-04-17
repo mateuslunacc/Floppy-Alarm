@@ -3,68 +3,61 @@ package projetoes.com.floppyalarm;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Alarm implements Parcelable {
     private boolean active;
     private String label;
     private boolean vibrate;
-    //conferir
     private boolean snooze;
     private boolean puzzle;
     private int hour;
     private int minute;
-    private String timeDay;
+    private List<Integer> selectedDays;
 
-    public Alarm() {
-        this.label = "Alarm";
-        this.active = false;
-        this.vibrate = false;
-        //conferir
-        this.puzzle = false;
-        this.snooze = false;
-        this.minute = 0;
-        this.hour = 0;
-        this.timeDay = "";
+    public boolean isActive() {
+        return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getLabel() {
+        return label;
     }
 
-    public void setPuzzle(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isPuzzle() {
-        return active;
-    }
-
-    public void setSnooze(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isSnooze() {
-        return active;
-    }
-
-    //conferir
-    public void setVibrate(boolean vibrate) {
-        this.vibrate = vibrate;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public boolean isVibrate() {
         return vibrate;
     }
 
-    public void setLabel(String newLabel) {
-        this.label = newLabel;
+    public void setVibrate(boolean vibrate) {
+        this.vibrate = vibrate;
     }
 
-    public String getLabel() {
-        return this.label;
+    public boolean isSnooze() {
+        return snooze;
+    }
+
+    public void setSnooze(boolean snooze) {
+        this.snooze = snooze;
+    }
+
+    public boolean isPuzzle() {
+        return puzzle;
+    }
+
+    public void setPuzzle(boolean puzzle) {
+        this.puzzle = puzzle;
+    }
+
+    public int getHour() {
+        return hour;
     }
 
     public void setTime(int hour, int minute) {
@@ -73,21 +66,37 @@ public class Alarm implements Parcelable {
     }
 
     public int getMinute() {
-        return this.minute;
+        return minute;
     }
 
-    public int getHour() {
-        return this.hour;
+    public List<Integer> getSelectedDays() {
+        return selectedDays;
     }
 
-    private Alarm(Parcel in) {
-        label = in.readString();
+    public void setSelectedDays(List<Integer> selectedDays) {
+        this.selectedDays = selectedDays;
+    }
+
+    public Alarm() {
+        this.active = false;
+        this.label = "Alarm";
+        this.vibrate = false;
+        this.snooze = false;
+        this.puzzle = false;
+        this.hour = 0;
+        this.minute = 0;
+        this.selectedDays = new ArrayList<Integer>();
+    }
+
+    protected Alarm(Parcel in) {
         active = in.readByte() != 0x00;
+        label = in.readString();
         vibrate = in.readByte() != 0x00;
-        puzzle = in.readByte() != 0x00;
         snooze = in.readByte() != 0x00;
+        puzzle = in.readByte() != 0x00;
         hour = in.readInt();
         minute = in.readInt();
+        selectedDays = in.readArrayList(null);
     }
 
     @Override
@@ -97,17 +106,16 @@ public class Alarm implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(label);
         dest.writeByte((byte) (active ? 0x01 : 0x00));
+        dest.writeString(label);
         dest.writeByte((byte) (vibrate ? 0x01 : 0x00));
-        //conferir
-        dest.writeByte((byte) (puzzle ? 0x01 : 0x00));
         dest.writeByte((byte) (snooze ? 0x01 : 0x00));
+        dest.writeByte((byte) (puzzle ? 0x01 : 0x00));
         dest.writeInt(hour);
         dest.writeInt(minute);
+        dest.writeList(selectedDays);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
         @Override
         public Alarm createFromParcel(Parcel in) {
@@ -119,12 +127,4 @@ public class Alarm implements Parcelable {
             return new Alarm[size];
         }
     };
-
-    public String getTimeDay() {
-        return timeDay;
-    }
-
-    public void setTimeDay(String timeDay) {
-        this.timeDay = timeDay;
-    }
 }

@@ -1,11 +1,14 @@
 package projetoes.com.floppyalarm;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -13,8 +16,6 @@ import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
-
-import static android.media.RingtoneManager.*;
 
 public class SettingsActivity extends AppCompatActivity {
     private Alarm alarm;
@@ -54,6 +55,8 @@ public class SettingsActivity extends AppCompatActivity {
         formattedTime = TimeStringFormat.formataString(alarm.getHour(), alarm.getMinute(), is24h);
         timeText.setText(formattedTime);
 
+        //carrega nome e caixa para modificar nome
+        labelButton = (TextView) findViewById(R.id.txt_label);
         labelText = (TextView) findViewById(R.id.txt_labelview);
         labelText.setText(alarm.getLabel());
 
@@ -83,6 +86,31 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        labelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(SettingsActivity.this);
+                final EditText edittext = new EditText(SettingsActivity.this);
+                alert.setMessage("Change your alarm label");
+                alert.setView(edittext);
+
+                alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String returnedText = edittext.getText().toString();
+                        labelText.setText(returnedText);
+                        alarm.setLabel(returnedText);
+                        alarmList.set(alarmPosition, alarm);
+                        PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+                alert.show();
+            }
+        });
     }
 
     @Override

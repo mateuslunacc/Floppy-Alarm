@@ -18,6 +18,9 @@ import projetoes.com.floppyalarm.utils.PersistenceManager;
 
 public class SelectDayActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
+    private static final int SUNDAY = 0;
+    private static final int MONDAY = 1;
+    private static final int SATURDAY = 6;
     private RelativeLayout layout;
     private final Integer FULL_WEEK = 7;
     private final Integer WEEK_DAYS = 5;
@@ -89,12 +92,12 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
             RadioButton btn = (RadioButton) findViewById(R.id.everyDayButton);
             btn.setChecked(true);
             selectAllDays(layout);
-        } else if (selectedDays.size() == FULL_WEEK-WEEK_DAYS && selectedDays.containsAll(Arrays.asList(FULL_WEEK-2,FULL_WEEK-1))) {
+        } else if (selectedDays.size() == FULL_WEEK-WEEK_DAYS && selectedDays.containsAll(Arrays.asList(FULL_WEEK, FULL_WEEK))) {
             uncheckAll(layout);
             RadioButton btn = (RadioButton) findViewById(R.id.weekendButton);
             btn.setChecked(true);
             selectWeekend(layout);
-        } else if(selectedDays.size() == WEEK_DAYS && !selectedDays.contains(FULL_WEEK-1)) {
+        } else if(selectedDays.size() == WEEK_DAYS && !selectedDays.contains(FULL_WEEK)) {
             uncheckAll(layout);
             RadioButton btn = (RadioButton) findViewById(R.id.weekDaysButton);
             btn.setChecked(true);
@@ -105,9 +108,9 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
             btn.setChecked(true);
             List<Integer> newList = selectedDays;
             uncheckAll(layout);
-            for (int i = 0; i < FULL_WEEK; i++) {
+            for (int i = 1; i <= FULL_WEEK; i++) {
                 if(newList.contains(i)) {
-                    ((CheckBox) layout.getChildAt(i)).setChecked(true);
+                    ((CheckBox) layout.getChildAt(i-1)).setChecked(true);
                 }
             }
         }
@@ -137,18 +140,15 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
 
     //seleciona todos os dias uteis
     private void selectWeekDays(RelativeLayout layout) {
-        for (int i = 0; i < WEEK_DAYS; i++) {
+        for (int i = MONDAY; i < SATURDAY; i++) {
             ((CheckBox) layout.getChildAt(i)).setChecked(true);
         }
     }
 
     //seleciona o final de semana
     private void selectWeekend(RelativeLayout layout) {
-        for (int i = 0; i < FULL_WEEK; i++) {
-            if (i >= WEEK_DAYS) {
-                ((CheckBox) layout.getChildAt(i)).setChecked(true);
-            }
-        }
+        ((CheckBox) layout.getChildAt(SUNDAY)).setChecked(true);
+        ((CheckBox) layout.getChildAt(SATURDAY)).setChecked(true);
     }
 
     //deixa checkboxes livres para o usuário escolher
@@ -168,8 +168,9 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
     //escuta mudanças de checkboxes e adiciona ou remove na lista e salva a lista
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Integer valorDia;
         if (buttonView instanceof CheckBox) {
-            Integer valorDia = layout.indexOfChild(buttonView);
+            valorDia = layout.indexOfChild(buttonView) + 1;
             if (isChecked) {
                 selectedDays.add(valorDia);
                 saveDays();

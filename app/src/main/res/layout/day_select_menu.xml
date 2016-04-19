@@ -10,7 +10,7 @@
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:text="Every day"
+        android:text="Everyday"
         android:id="@+id/everyDayButton" />
 
     <View
@@ -57,6 +57,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/layoutDay">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sun"
+            android:id="@+id/sundayCheckbox"
+            android:layout_below="@+id/fridayCheckbox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/saturdayCheckbox"
+            android:layout_toStartOf="@+id/saturdayCheckbox"
+            android:enabled="false" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -122,20 +134,6 @@
             android:layout_alignLeft="@+id/thursdayCheckbox"
             android:layout_alignStart="@+id/thursdayCheckbox"
             android:enabled="false" />
-
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="sun"
-            android:id="@+id/sundayCheckbox"
-            android:layout_below="@+id/fridayCheckbox"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/saturdayCheckbox"
-            android:layout_toStartOf="@+id/saturdayCheckbox"
-            android:enabled="false" />
-
     </RelativeLayout>
 
 </LinearLayout>

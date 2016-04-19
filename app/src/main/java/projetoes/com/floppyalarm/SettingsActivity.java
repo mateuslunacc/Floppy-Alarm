@@ -18,12 +18,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
-import static android.media.RingtoneManager.*;
+import static android.media.RingtoneManager.ACTION_RINGTONE_PICKER;
+import static android.media.RingtoneManager.EXTRA_RINGTONE_EXISTING_URI;
+import static android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT;
+import static android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT;
+import static android.media.RingtoneManager.EXTRA_RINGTONE_TITLE;
+import static android.media.RingtoneManager.EXTRA_RINGTONE_TYPE;
+import static android.media.RingtoneManager.TYPE_ALARM;
+import static android.media.RingtoneManager.getActualDefaultRingtoneUri;
 
 public class SettingsActivity extends AppCompatActivity {
     private Alarm alarm;
@@ -217,26 +226,29 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
+    //carrega string com os dias selecionados
     private void loadRepeatedDays() {
+        Calendar cal = Calendar.getInstance();
         String tempString = "";
-        String[] days = {"mon", "tues", "wed", "thu", "fri", "sat", "sun"};
         repeatDays = alarm.getSelectedDays();
         if (repeatDays.size() > 0) {
             switchRepeat.setChecked(alarm.isRepeat());
             switchRepeat.setEnabled(true);
-            tempString = "";
-            for (int i : repeatDays) {
-                tempString = tempString.concat(days[i]) + " ";
-            } if (repeatDays.size() == 7) {
+            if (repeatDays.size() == 7) {
                 tempString = "Full week";
-            } else if (repeatDays.size() == 2 && repeatDays.contains(5) && repeatDays.contains(6)) {
+            } else if (repeatDays.size() == 2 && repeatDays.contains(Calendar.SATURDAY) && repeatDays.contains(Calendar.SUNDAY)) {
                 tempString = "Weekend";
-            } else if (repeatDays.size() == 5 && repeatDays.containsAll(Arrays.asList(new Integer[]{0,1,2,3,4}))) {
+            } else if (repeatDays.size() == 5 && repeatDays.containsAll(Arrays.asList(new Integer[]{Calendar.MONDAY, Calendar.TUESDAY,
+                    Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY}))) {
                 tempString = "Week days";
+            } else {
+                for (int i : repeatDays) {
+                    cal.set(Calendar.DAY_OF_WEEK, i);
+                    tempString = tempString.concat(cal.getDisplayName(cal.DAY_OF_WEEK, Calendar.LONG, Locale.US) + " ");
+                }
             }
             repeatDaysText.setText(tempString);
         } else {
-            tempString = "";
             repeatDaysText.setText(tempString);
             switchRepeat.setChecked(false);
             switchRepeat.setEnabled(false);

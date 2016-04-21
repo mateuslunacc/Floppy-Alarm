@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import projetoes.com.floppyalarm.utils.AlarmServiceManager;
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
@@ -25,7 +26,6 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
     private Alarm selectedAlarm;
     private Switch swiActive;
     private String time;
-
     public RowAdapter(List<Alarm> alarmList, Context context)
     {
         this.alarmList = alarmList;
@@ -62,7 +62,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
 
         //carrega o estado de ativo do switch
         swiActive.setChecked(selectedAlarm.isActive());
-        swiActive.setTag(Integer.valueOf(position));
+        swiActive.setTag(position);
 
         //recupera e formata horário de alarme
         //carrega tempo do alarme e exibe na activity
@@ -71,9 +71,9 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
 
         //mostra o horário de cada alarme abaixo de seu label
         listItemText.setText(selectedAlarm.getLabel());
-        listItemText.setTag(Integer.valueOf(position));
+        listItemText.setTag(position);
         textTime.setText(time);
-        textTime.setTag(Integer.valueOf(position));
+        textTime.setTag(position);
 
         //passa informações do alarme para a tela de settings
         listItemText.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +92,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         listItemText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View v) {
+                Integer realPosition = (Integer) v.getTag();
                 new AlertDialog.Builder(context)
                         .setTitle("Delete alarm")
                         .setMessage("Are you sure you want to delete this alarm?")
@@ -99,7 +100,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Integer realPosition = (Integer) v.getTag();
-                                alarmList.remove(getItem(realPosition));
+                                alarmList.remove(alarmList.get(realPosition));
                                 Toast toast = Toast.makeText(context, "Alarm deleted", Toast.LENGTH_SHORT);
                                 PersistenceManager.saveAlarms(context, alarmList);
                                 toast.show();
@@ -108,6 +109,7 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                         })
                         .setNegativeButton("No", null)
                         .show();
+                AlarmServiceManager.cancelAlarmService(realPosition, context, selectedAlarm);
                 return true;
             }
         });
@@ -120,6 +122,11 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                 boolean status = selectedAlarm.isActive();
                 swiActive.setChecked(!status);
                 selectedAlarm.setActive(!status);
+                if (((Switch) v).isChecked()) {
+                    AlarmServiceManager.createAlarmService(realPosition, context, selectedAlarm);
+                } else {
+                    AlarmServiceManager.cancelAlarmService(realPosition, context, selectedAlarm);
+                }
                 PersistenceManager.saveAlarms(context, alarmList);
                 notifyDataSetChanged();
             }
@@ -127,3 +134,4 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 }
+

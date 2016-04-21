@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
@@ -125,7 +124,7 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
 
     //desmarca todas checkboxes
     private void uncheckAll(RelativeLayout layout) {
-        selectedDays = new ArrayList<Integer>();
+        selectedDays = new ArrayList<>();
         for (int i = 0; i < FULL_WEEK; i++) {
             ((CheckBox) layout.getChildAt(i)).setChecked(false);
         }

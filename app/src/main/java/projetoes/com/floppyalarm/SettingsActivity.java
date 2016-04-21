@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import projetoes.com.floppyalarm.utils.AlarmServiceManager;
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
@@ -45,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView ringtone;
     private TextView ringtoneName;
     private String formattedTime;
-    boolean is24h;
+    private boolean is24h;
     private TextView labelButton;
     private TextView labelText;
     private Switch switchRepeat;
@@ -153,7 +154,8 @@ public class SettingsActivity extends AppCompatActivity {
                                     formattedTime = TimeStringFormat.formataString(hourOfDay, minute, is24h);
                                     timeText = (TextView) findViewById(R.id.txt_timeContent);
                                     timeText.setText(formattedTime);
-                                }
+                                    AlarmServiceManager.cancelAlarmService(alarmPosition, SettingsActivity.this, alarm);
+                                    AlarmServiceManager.createAlarmService(alarmPosition, SettingsActivity.this, alarm);                                }
                             }
                         }, 0, 0, is24h);
                 timePickerDialog.setTitle("Select Time");
@@ -211,9 +213,6 @@ public class SettingsActivity extends AppCompatActivity {
             alarm.setRingtoneUriString(uri.toString());
             alarmList.set(alarmPosition, alarm);
             PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
-            if (uri != null) {
-                String ringTonePath = uri.toString();
-            }
         }
     }
 
@@ -238,8 +237,8 @@ public class SettingsActivity extends AppCompatActivity {
                 tempString = "Full week";
             } else if (repeatDays.size() == 2 && repeatDays.contains(Calendar.SATURDAY) && repeatDays.contains(Calendar.SUNDAY)) {
                 tempString = "Weekend";
-            } else if (repeatDays.size() == 5 && repeatDays.containsAll(Arrays.asList(new Integer[]{Calendar.MONDAY, Calendar.TUESDAY,
-                    Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY}))) {
+            } else if (repeatDays.size() == 5 && repeatDays.containsAll(Arrays.asList(Calendar.MONDAY, Calendar.TUESDAY,
+                    Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY))) {
                 tempString = "Week days";
             } else {
                 for (int i : repeatDays) {

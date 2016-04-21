@@ -42,9 +42,9 @@ public class PersistenceManager {
                     Alarm[].class);
 
             alarms = Arrays.asList(alarmsList);
-            alarms = new ArrayList<Alarm>(alarms);
+            alarms = new ArrayList<>(alarms);
         } else
-            return new ArrayList<Alarm>();
+            return new ArrayList<>();
         return (ArrayList<Alarm>) alarms;
     }
 

@@ -24,8 +24,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_puzzle"
-        android:text="Puzzle"
+        android:id="@+id/btn_dismiss"
+        android:text="Dismiss"
         android:layout_alignTop="@+id/btb_snooze"
         android:layout_toRightOf="@+id/txt_alarmTime"
         android:layout_toEndOf="@+id/txt_alarmTime" />

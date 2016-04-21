@@ -104,7 +104,7 @@ public class Alarm implements Parcelable {
         this.puzzle = false;
         this.hour = 0;
         this.minute = 0;
-        this.selectedDays = new ArrayList<Integer>();
+        this.selectedDays = new ArrayList<>();
         this.ringtoneUriString = "";
     }
 

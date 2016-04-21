@@ -12,21 +12,18 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private ArrayList<Alarm> alarmList;
+    private List<Alarm> alarmList;
     private Alarm alarm;
     private RowAdapter adapter;
     private FloatingActionButton fab;
-    private boolean is24h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        is24h = DateFormat.is24HourFormat(MainActivity.this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -63,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 toast.show();
                             }
                         }
-                    }, 0, 0, is24h);
+                    }, 0, 0, DateFormat.is24HourFormat(this));
+            timePickerDialog.setTitle("Select Time");
             timePickerDialog.show();
         }
     }

@@ -1,12 +1,10 @@
 package projetoes.com.floppyalarm.puzzle.floppy;
 
-import java.util.HashMap;
-
 public class Edge extends Piece{
 
-	public Edge(FaceColor defaultFaceColor, 
-			Orientation orientation, SideColor color) {
-		super(defaultFaceColor);
+	public Edge(Integer defaultFaceColor, Integer oppositeFaceColor,
+			Orientation orientation, Integer color) {
+		super(defaultFaceColor, oppositeFaceColor);
 
 		sideFaces.put(orientation, color);
 	}
@@ -16,15 +14,15 @@ public class Edge extends Piece{
 		super.flip(orientation);
 		
 		if (orientation == Orientation.HORIZONTAL) {
-			SideColor rightColor = sideFaces.get(Orientation.RIGHT);
-			SideColor leftColor = sideFaces.get(Orientation.LEFT);
+			Integer rightColor = sideFaces.get(Orientation.RIGHT);
+			Integer leftColor = sideFaces.get(Orientation.LEFT);
 			
 			this.sideFaces.put(Orientation.RIGHT, leftColor);
 			this.sideFaces.put(Orientation.LEFT, rightColor);
 			
 		} else {
-			SideColor topColor = sideFaces.get(Orientation.TOP);
-			SideColor bottomColor = sideFaces.get(Orientation.BOTTOM);
+			Integer topColor = sideFaces.get(Orientation.TOP);
+			Integer bottomColor = sideFaces.get(Orientation.BOTTOM);
 
 			this.sideFaces.put(Orientation.TOP, bottomColor);
 			this.sideFaces.put(Orientation.BOTTOM, topColor);

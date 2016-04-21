@@ -2,10 +2,10 @@ package projetoes.com.floppyalarm.puzzle.floppy;
 
 public class Corner extends Piece{
 
-	public Corner(FaceColor defaultFaceColor,
-			Orientation orientation1, SideColor color1,
-			Orientation orientation2, SideColor color2) {
-		super(defaultFaceColor);
+	public Corner(Integer defaultFaceColor, Integer oppositeFaceColor,
+			Orientation orientation1, Integer color1,
+			Orientation orientation2, Integer color2) {
+		super(defaultFaceColor, oppositeFaceColor);
 		
 		sideFaces.put(orientation1, color1);
 		sideFaces.put(orientation2, color2);
@@ -16,15 +16,15 @@ public class Corner extends Piece{
 		super.flip(orientation);
 		
 		if (orientation == Orientation.HORIZONTAL) {
-			SideColor rightColor = sideFaces.get(Orientation.RIGHT);
-			SideColor leftColor = sideFaces.get(Orientation.LEFT);
+			Integer rightColor = sideFaces.get(Orientation.RIGHT);
+			Integer leftColor = sideFaces.get(Orientation.LEFT);
 			
 			this.sideFaces.put(Orientation.RIGHT, leftColor);
 			this.sideFaces.put(Orientation.LEFT, rightColor);
 			
 		} else {
-			SideColor topColor = sideFaces.get(Orientation.TOP);
-			SideColor bottomColor = sideFaces.get(Orientation.BOTTOM);
+			Integer topColor = sideFaces.get(Orientation.TOP);
+			Integer bottomColor = sideFaces.get(Orientation.BOTTOM);
 
 			this.sideFaces.put(Orientation.TOP, bottomColor);
 			this.sideFaces.put(Orientation.BOTTOM, topColor);

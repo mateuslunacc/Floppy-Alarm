@@ -4,29 +4,33 @@ import java.util.HashMap;
 
 public abstract class Piece {
 	
-	protected FaceColor faceColor;
-	protected HashMap<Orientation, SideColor> sideFaces;
+	protected Integer faceColor;
+	protected Integer oppositeFaceColor;
+	protected HashMap<Orientation, Integer> sideFaces;
 	
-	public Piece(FaceColor defaultFaceColor){
+	public Piece(Integer defaultFaceColor, Integer oppositeFaceColor){
 		this.faceColor = defaultFaceColor;
-		
-		this.sideFaces = new HashMap<Orientation, SideColor>();
-		sideFaces.put(Orientation.TOP, SideColor.NONE);
-		sideFaces.put(Orientation.BOTTOM, SideColor.NONE);
-		sideFaces.put(Orientation.RIGHT, SideColor.NONE);
-		sideFaces.put(Orientation.LEFT, SideColor.NONE);
+		this.oppositeFaceColor = oppositeFaceColor;
+
+		this.sideFaces = new HashMap<>();
+		sideFaces.put(Orientation.TOP, 0);
+		sideFaces.put(Orientation.BOTTOM, 0);
+		sideFaces.put(Orientation.RIGHT, 0);
+		sideFaces.put(Orientation.LEFT, 0);
 	}
 	
-	public SideColor getSideColor(Orientation orientation){
+	public Integer getSideColor(Orientation orientation){
 		return sideFaces.get(orientation);
 	}
 	
-	public FaceColor getFaceColor(){
+	public Integer getFaceColor(){
 		return this.faceColor;
 	}
-	
+
 	protected void flip(Orientation orientation){
-		this.faceColor = this.faceColor == FaceColor.WHITE ? FaceColor.YELLOW : FaceColor.WHITE;
+		Integer temp = this.faceColor;
+		this.faceColor = this.oppositeFaceColor;
+		this.oppositeFaceColor = temp;
 	}
 	
 	public boolean compareFace(Piece piece){

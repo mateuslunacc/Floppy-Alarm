@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/blackColor">
 
 
     <ScrollView
@@ -22,16 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:id="@+id/beginnersMethod">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="TUTORIAL FLOPPY ALARM"
-                android:id="@+id/CabecalhoTextView"
+                android:text="Floppy puzzle tutorial"
+                android:id="@+id/headerText"
                 android:textStyle="bold"
-                android:textColor="#000000"
+                android:textColor="@color/whiteColor"
                 android:textSize="25sp"
                 android:typeface="sans"
                 android:layout_alignParentTop="true"
@@ -39,106 +39,124 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignRight="@+id/scrollView"
                 android:layout_alignEnd="@+id/scrollView"
-                android:gravity="center" />
+                android:gravity="center"
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="It&apos;s pretty easy to solve."
-                android:id="@+id/Linha1TextView"
+                android:text="In the Beginner&apos;s method, you do the following steps:"
+                android:id="@+id/titleText"
                 android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:typeface="sans"
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="You do the following steps:"
-                android:id="@+id/Linha2TextView"
-                android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="@color/whiteColor"
                 android:typeface="sans"
                 android:textSize="18sp"
-                android:layout_marginTop="2dp" />
+                android:layout_marginTop="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Intuitively orient the corners in relation to the centre (should only take one move at maximum, but knowledge of edge orientation algs can allow you to orient the corners in a way to skip step 3)."
-                android:id="@+id/Linha3TextView"
+                android:text="First of all you've to learn the notation. \n\nL: Left\nM: Middle\nR: Right\nU: Up\nE: Equatorial\nD: Down\n"
+                android:id="@+id/notation"
                 android:textSize="18sp"
                 android:typeface="sans"
-                android:textColor="#000000"
+                android:textColor="@color/whiteColor"
                 android:textAlignment="center"
                 android:layout_marginTop="2dp" />
 
             <ImageView
-                android:layout_width="183dp"
-                android:layout_height="183dp"
-                android:id="@+id/Caso1ImageView"
-                android:layout_below="@id/Linha3TextView"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/nbn"
-                android:layout_marginTop="6dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notationImage"
+                android:adjustViewBounds="true"
+                android:src="@drawable/notation"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="1. Intuitively orient the corners in relation to the center."
+                android:id="@+id/step1"
+                android:textSize="18sp"
+                android:typeface="sans"
+                android:textColor="@color/whiteColor"
+                android:textAlignment="center"
+                android:layout_marginTop="2dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/step1Image"
+                android:adjustViewBounds="true"
+                android:src="@drawable/step1"
+                android:visibility="visible" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Algorithmically, orient the edges."
-                android:id="@+id/Linha4TextView"
+                android:text="2. Algorithmically, orient the edges."
+                android:id="@+id/step2"
                 android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="@color/whiteColor"
                 android:typeface="sans"
                 android:textSize="18sp"
                 android:layout_marginTop="6dp" />
 
             <ImageView
-                android:layout_width="183dp"
-                android:layout_height="183dp"
-                android:id="@+id/caso2ImageView"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@id/Linha4TextView"
-                android:src="@drawable/image3366"
-                android:layout_marginTop="6dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/step2Image"
+                android:adjustViewBounds="true"
+                android:src="@drawable/step2" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="If the last four sides are not completed, execute a single algorithm to finish off the puzzle."
-                android:id="@+id/Linha5TextView"
+                android:text="R U R"
+                android:id="@+id/step2Algorithm"
                 android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="@color/whiteColor"
+                android:typeface="sans"
+                android:textSize="18sp"
+                android:layout_marginTop="6dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="3. If the last four sides are not completed, execute a single algorithm to finish off the puzzle."
+                android:id="@+id/step3"
+                android:gravity="center"
+                android:textColor="@color/whiteColor"
                 android:textSize="18sp"
                 android:typeface="sans"
                 android:layout_marginTop="6dp" />
 
             <ImageView
-                android:layout_width="183dp"
-                android:layout_height="183dp"
-                android:id="@+id/caso3ImageView"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@id/Linha5TextView"
-                android:src="@drawable/image3377"
-                android:layout_marginTop="6dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/step3Image"
+                android:adjustViewBounds="true"
+                android:src="@drawable/step3" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is plenty to solve the cube, and can get you descent times."
-                android:id="@+id/Linha6TextView"
-                android:layout_gravity="center_vertical"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:typeface="sans"
+                android:text="(R U R) (L U L)"
+                android:id="@+id/step3Algorithm"
                 android:gravity="center"
+                android:textColor="@color/whiteColor"
+                android:typeface="sans"
+                android:textSize="18sp"
                 android:layout_marginTop="6dp" />
 
         </LinearLayout>

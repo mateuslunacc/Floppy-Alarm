@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".WakeUpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -24,7 +24,7 @@
         <activity android:name=".SelectDayActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".AlarmDisplayActivity"></activity>
-        <activity android:name=".WakeUpActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
         <receiver
             android:name=".AlarmReceiver"> </receiver>
         <receiver android:name=".BootReceiver" android:enabled="true">

@@ -78,25 +78,25 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="false"
                     android:layout_margin="2dp"
-                    android:background="@color/greenColor" />
+                    android:background="@drawable/green_sticker" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/topSideColor1"
                     android:layout_weight="1"
-                    android:background="@color/greenColor"
                     android:adjustViewBounds="false"
-                    android:layout_margin="2dp" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/green_sticker" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/topSideColor2"
                     android:layout_weight="1"
-                    android:background="@color/greenColor"
                     android:adjustViewBounds="false"
-                    android:layout_margin="2dp" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/green_sticker" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -125,27 +125,27 @@
                         android:layout_height="match_parent"
                         android:id="@+id/leftSideColor0"
                         android:layout_weight="1"
-                        android:background="@color/redColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/red_sticker" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/leftSideColor1"
                         android:layout_weight="1"
-                        android:background="@color/redColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/red_sticker" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/leftSideColor2"
                         android:layout_weight="1"
-                        android:background="@color/redColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/red_sticker" />
                 </LinearLayout>
 
                 <android.support.v7.widget.GridLayout
@@ -161,118 +161,118 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor00"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_columnWeight="1"
-                        app:layout_rowWeight="1" />
+                        app:layout_rowWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor01"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor02"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor10"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor11"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor12"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor20"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor21"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/faceColor22"
-                        android:background="@color/whiteColor"
                         android:adjustViewBounds="false"
                         android:layout_margin="2dp"
                         android:baselineAlignBottom="false"
                         android:cropToPadding="false"
                         android:focusableInTouchMode="false"
                         app:layout_rowWeight="1"
-                        app:layout_columnWeight="1" />
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/white_sticker" />
                 </android.support.v7.widget.GridLayout>
 
                 <LinearLayout
@@ -287,27 +287,27 @@
                         android:layout_height="match_parent"
                         android:id="@+id/rightSideColor0"
                         android:layout_weight="1"
-                        android:background="@color/orangeColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/orange_sticker" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/rightSideColor1"
                         android:layout_weight="1"
-                        android:background="@color/orangeColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/orange_sticker" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/rightSideColor2"
                         android:layout_weight="1"
-                        android:background="@color/orangeColor"
                         android:adjustViewBounds="false"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="@drawable/orange_sticker" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -330,25 +330,25 @@
                     android:layout_height="match_parent"
                     android:id="@+id/botomSideColor0"
                     android:layout_weight="1"
-                    android:background="@color/blueColor"
-                    android:layout_margin="2dp" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/blue_sticker" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/botomSideColor1"
                     android:layout_weight="1"
-                    android:background="@color/blueColor"
                     android:adjustViewBounds="false"
-                    android:layout_margin="2dp" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/blue_sticker" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/botomSideColor2"
                     android:layout_weight="1"
-                    android:background="@color/blueColor"
-                    android:layout_margin="2dp" />
+                    android:layout_margin="2dp"
+                    android:background="@drawable/blue_sticker" />
 
                 <Space
                     android:layout_width="match_parent"

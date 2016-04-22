@@ -18,7 +18,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         //carrega o estado mais atual do alarme
         Bundle extras = intent.getExtras();
         alarmPosition = (Integer) extras.get("alarmPosition");
@@ -28,7 +27,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra("alarmPosition", alarmPosition);
         i.putExtra("alarm", alarm);
-
 
         //verifica se alarme tem repeticoes e cria novo servico para ativar para o proximo dia
         if (alarm.isRepeat()) {

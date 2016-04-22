@@ -53,12 +53,12 @@ public class WakeUpActivity extends Activity {
 
         //Puzzle objects
         this.cube = new FloppyCube(
-                ContextCompat.getColor(this, R.color.whiteColor),
-                ContextCompat.getColor(this, R.color.yellowColor),
-                ContextCompat.getColor(this, R.color.greenColor),
-                ContextCompat.getColor(this, R.color.blueColor),
-                ContextCompat.getColor(this, R.color.orangeColor),
-                ContextCompat.getColor(this, R.color.redColor));
+                R.drawable.white_sticker,
+                R.drawable.yellow_sticker,
+                R.drawable.green_sticker,
+                R.drawable.blue_sticker,
+                R.drawable.orange_sticker,
+                R.drawable.red_sticker);
 
         //Faces
         this.faceColors = (GridLayout) findViewById(R.id.faceColors);
@@ -111,7 +111,7 @@ public class WakeUpActivity extends Activity {
                     case MotionEvent.ACTION_DOWN:
                         return true;
                     case MotionEvent.ACTION_MOVE:
-                        for(int position = 0; position < faceColors.getChildCount(); position++) {
+                        for (int position = 0; position < faceColors.getChildCount(); position++) {
                             View view = faceColors.getChildAt(position);
                             Rect outRect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
                             if (outRect.contains((int) event.getX(), (int) event.getY())) {
@@ -161,23 +161,23 @@ public class WakeUpActivity extends Activity {
             for(int column = 0; column < DIMENSION; column++) {
                 position = row * 3 + column;
                 View v = faceColors.getChildAt(position);
-                v.setBackgroundColor(cube.getPiece(row, column).getFaceColor());
+                v.setBackgroundResource(cube.getPiece(row, column).getFaceColor());
             }
         }
         for (int topSideColor = 0; topSideColor < DIMENSION; topSideColor++) {
-            topSideColors.getChildAt(topSideColor+1).setBackgroundColor(
+            topSideColors.getChildAt(topSideColor+1).setBackgroundResource(
                     cube.getPiece(0, topSideColor).getSideColor(Orientation.TOP));
         }
         for (int bottomSideColor = 0; bottomSideColor < DIMENSION; bottomSideColor++) {
-            bottomSideColors.getChildAt(bottomSideColor+1).setBackgroundColor(
+            bottomSideColors.getChildAt(bottomSideColor+1).setBackgroundResource(
                     cube.getPiece(2, bottomSideColor).getSideColor(Orientation.BOTTOM));
         }
         for (int rightSideColor = 0; rightSideColor < DIMENSION; rightSideColor++) {
-            rightSideColors.getChildAt(rightSideColor).setBackgroundColor(
+            rightSideColors.getChildAt(rightSideColor).setBackgroundResource(
                     cube.getPiece(rightSideColor, 2).getSideColor(Orientation.RIGHT));
         }
         for (int leftSideColor = 0; leftSideColor < DIMENSION; leftSideColor++) {
-            leftSideColors.getChildAt(leftSideColor).setBackgroundColor(
+            leftSideColors.getChildAt(leftSideColor).setBackgroundResource(
                     cube.getPiece(leftSideColor, 0).getSideColor(Orientation.LEFT));
         }
     }

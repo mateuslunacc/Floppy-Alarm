@@ -18,12 +18,17 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Intent i;
         //carrega o estado mais atual do alarme
         Bundle extras = intent.getExtras();
         alarmPosition = (Integer) extras.get("alarmPosition");
         alarms = PersistenceManager.retrieveAlarms(context);
         alarm = alarms.get(alarmPosition);
-        Intent i = new Intent(context, AlarmDisplayActivity.class);
+        if (alarm.isPuzzle()) {
+            i = new Intent(context, WakeUpActivity.class);
+        } else {
+            i = new Intent(context, AlarmDisplayActivity.class);
+        }
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra("alarmPosition", alarmPosition);
         i.putExtra("alarm", alarm);
@@ -38,8 +43,9 @@ public class AlarmReceiver extends BroadcastReceiver {
             List<Alarm> listAlarm = PersistenceManager.retrieveAlarms(context);
             alarm.setActive(false);
             listAlarm.set(alarmPosition, alarm);
-            PersistenceManager.saveAlarms(context,listAlarm);
+            PersistenceManager.saveAlarms(context, listAlarm);
         }
+        AlarmServiceManager.refreshNotifications(context);
         context.startActivity(i);
     }
 

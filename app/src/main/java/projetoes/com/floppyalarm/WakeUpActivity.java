@@ -1,12 +1,18 @@
 package projetoes.com.floppyalarm;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.os.Vibrator;
+import android.text.format.DateFormat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.GridLayout;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +20,7 @@ import java.util.HashSet;
 
 import projetoes.com.floppyalarm.puzzle.floppy.FloppyCube;
 import projetoes.com.floppyalarm.puzzle.floppy.Orientation;
+import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
 /*
 * Activity that shows the floppy puzzle.
@@ -41,15 +48,34 @@ public class WakeUpActivity extends Activity {
     private HashSet<View> layerM;
     private HashSet<View> layerR;
     private HashSet<View> piecesTouched;
+    private Alarm alarm;
+    private MediaPlayer player;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //seta janela para aparecer na frente de todas as telas e ativa
+        final Window win = getWindow();
+        win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        alarm = extras.getParcelable("alarm");
         setContentView(R.layout.activity_wake_up);
 
         //Alarm data
-        alarmTime = (TextView) findViewById(R.id.txt_alarmTime);
-        alarmLabel = (TextView) findViewById(R.id.txt_alarmLabel);
+        alarmTime = (TextView) findViewById(R.id.puzzleAlarmLabel);
+        alarmLabel = (TextView) findViewById(R.id.puzzleTimeLabel);
+
+        //Set alarm data
+        alarmTime.setText(TimeStringFormat.formataString(alarm.getHour(), alarm.getMinute(), DateFormat.is24HourFormat(getApplicationContext())));
+        alarmLabel.setText(alarm.getLabel());
 
         //Puzzle objects
         this.cube = new FloppyCube(
@@ -128,11 +154,23 @@ public class WakeUpActivity extends Activity {
                         if (cube.isSolved()) {
                             Toast finishMessage = Toast.makeText(getApplicationContext(), "Nice Job!", Toast.LENGTH_SHORT);
                             finishMessage.show();
+                            finish();
                         }
                         return false;
                 }
             }
         });
+
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        Uri notification = Uri.parse(alarm.getRingtoneUriString());
+        player = MediaPlayer.create(this, notification);
+        player.setLooping(true);
+        player.start();
+
+        if (alarm.isVibrate()) {
+            long[] pattern = {0, 500, 500};
+            vibrator.vibrate(pattern, 0);
+        }
     }
 
     private Character getMove(HashSet<View> pieces) {
@@ -180,6 +218,18 @@ public class WakeUpActivity extends Activity {
             leftSideColors.getChildAt(leftSideColor).setBackgroundResource(
                     cube.getPiece(leftSideColor, 0).getSideColor(Orientation.LEFT));
         }
+    }
+
+    private void stopEvents() {
+        player.release();
+        vibrator.cancel();
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopEvents();
+        finish();
+        super.onDestroy();
     }
 
 }

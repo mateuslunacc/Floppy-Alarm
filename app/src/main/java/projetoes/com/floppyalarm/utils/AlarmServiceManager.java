@@ -1,10 +1,13 @@
 package projetoes.com.floppyalarm.utils;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -14,12 +17,17 @@ import java.util.concurrent.TimeUnit;
 
 import projetoes.com.floppyalarm.Alarm;
 import projetoes.com.floppyalarm.AlarmReceiver;
+import projetoes.com.floppyalarm.MainActivity;
+import projetoes.com.floppyalarm.R;
 
 public class  AlarmServiceManager {
 
     private static final int SNOOZE_MINUTES = 5;
+    private static Notification notification;
+    private static NotificationManager notificationManager;
 
     public static void createAlarmService(int requestCode, Context context, Alarm alarm) {
+        refreshNotifications(context);
         //prepara alarm e intent
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -69,6 +77,7 @@ public class  AlarmServiceManager {
         }
         String diffString = formattedDiference(settedCalendar);
         Toast toast = Toast.makeText(context, diffString, Toast.LENGTH_SHORT);
+        showNotification(context);
         toast.show();
     }
 
@@ -104,6 +113,7 @@ public class  AlarmServiceManager {
 
     //cancela um servico de alarme
     public static void cancelAlarmService(int requestCode, Context context, Alarm alarm) {
+        refreshNotifications(context);
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("alarm", alarm);
@@ -117,6 +127,35 @@ public class  AlarmServiceManager {
         Alarm snoozeAlarm = new Alarm();
         snoozeAlarm.setTime(alarm.getHour(), alarm.getMinute() + SNOOZE_MINUTES);
         createAlarmService(position, context, snoozeAlarm);
+    }
+
+    private static void showNotification(Context context) {
+        PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+        notification = new NotificationCompat.Builder(context)
+                .setTicker("Alarm")
+                .setSmallIcon(R.drawable.ic_notification_icon)
+                .setContentTitle("Floppy Alarm")
+                .setContentIntent(pi)
+                .setOngoing(true)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("There is at least one active alarm right now. Click here to check."))
+                .build();
+        notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+    }
+
+    public static void refreshNotifications(Context context) {
+        boolean activeAlarm = false;
+        List<Alarm> alarmList = PersistenceManager.retrieveAlarms(context);
+        for (Alarm a : alarmList) {
+            if(a.isActive()) {
+                activeAlarm = true;
+            }
+        }
+        if (!activeAlarm) {
+            notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(0);
+        }
     }
 
 }

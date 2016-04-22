@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView labelText;
     private Switch switchRepeat;
     private TextView repeatDaysText;
+    private Switch puzzleSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,10 @@ public class SettingsActivity extends AppCompatActivity {
         switchRepeat = (Switch) findViewById(R.id.swi_day);
         repeatDaysText = (TextView) findViewById(R.id.txt_repeatdays);
         switchRepeat.setChecked(alarm.isRepeat());
+
+        //carrega botão de puzzle
+        puzzleSwitch = (Switch) findViewById(R.id.swi_puzzle);
+        puzzleSwitch.setChecked(alarm.isPuzzle());
 
         //checa estado dos dias repetidos
         loadRepeatedDays();
@@ -195,6 +200,17 @@ public class SettingsActivity extends AppCompatActivity {
                 boolean status = alarm.isRepeat();
                 switchRepeat.setChecked(!status);
                 alarm.setRepeat(!status);
+                alarmList.set(alarmPosition, alarm);
+                PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
+            }
+        });
+
+        puzzleSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean status = alarm.isPuzzle();
+                puzzleSwitch.setChecked(!status);
+                alarm.setPuzzle(!status);
                 alarmList.set(alarmPosition, alarm);
                 PersistenceManager.saveAlarms(getApplicationContext(), alarmList);
             }

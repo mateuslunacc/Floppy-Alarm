@@ -120,14 +120,14 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                 Integer realPosition = (Integer) v.getTag();
                 selectedAlarm = (Alarm) getItem(realPosition);
                 boolean status = selectedAlarm.isActive();
-                swiActive.setChecked(!status);
+                ((Switch) v).setChecked(!status);
                 selectedAlarm.setActive(!status);
+                PersistenceManager.saveAlarms(context, alarmList);
                 if (((Switch) v).isChecked()) {
                     AlarmServiceManager.createAlarmService(realPosition, context, selectedAlarm);
                 } else {
                     AlarmServiceManager.cancelAlarmService(realPosition, context, selectedAlarm);
                 }
-                PersistenceManager.saveAlarms(context, alarmList);
                 notifyDataSetChanged();
             }
         });

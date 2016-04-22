@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.GridLayout;
+import android.support.v7.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import projetoes.com.floppyalarm.puzzle.floppy.FloppyCube;
@@ -103,7 +100,7 @@ public class WakeUpActivity extends Activity {
 
         //Initializing puzzle solution
         this.piecesTouched = new HashSet<>();
-        this.cube.scramble(20);
+        this.cube.scramble(15);
         this.updateFloppyPuzzle();
 
         this.faceColors.setOnTouchListener(new View.OnTouchListener() {
@@ -136,8 +133,6 @@ public class WakeUpActivity extends Activity {
                 }
             }
         });
-
-
     }
 
     private Character getMove(HashSet<View> pieces) {
@@ -158,7 +153,6 @@ public class WakeUpActivity extends Activity {
             }
         }
         return move;
-
     }
 
     private void updateFloppyPuzzle() {

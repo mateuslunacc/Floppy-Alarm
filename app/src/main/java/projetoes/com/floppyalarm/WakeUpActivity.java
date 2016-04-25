@@ -154,7 +154,7 @@ public class WakeUpActivity extends Activity {
                         if (cube.isSolved()) {
                             Toast finishMessage = Toast.makeText(getApplicationContext(), "Nice Job!", Toast.LENGTH_SHORT);
                             finishMessage.show();
-                            finish();
+                            onDestroy();
                         }
                         return false;
                 }

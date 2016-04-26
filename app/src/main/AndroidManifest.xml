@@ -21,8 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectDayActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsActivity"
+            android:parentActivityName="projetoes.com.floppyalarm.MainActivity"
+            android:launchMode="singleTop"
+            />
+        <activity android:name=".TutorialActivity"
+            android:parentActivityName="projetoes.com.floppyalarm.MainActivity"/>
+        <activity android:name=".SelectDayActivity"
+            android:parentActivityName="projetoes.com.floppyalarm.SettingsActivity" />
         <activity android:name=".AlarmDisplayActivity" />
         <activity android:name=".WakeUpActivity" />
         <receiver

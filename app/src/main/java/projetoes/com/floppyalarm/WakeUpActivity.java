@@ -20,6 +20,7 @@ import java.util.HashSet;
 
 import projetoes.com.floppyalarm.puzzle.floppy.FloppyCube;
 import projetoes.com.floppyalarm.puzzle.floppy.Orientation;
+import projetoes.com.floppyalarm.utils.AlarmServiceManager;
 import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
 /*
@@ -154,7 +155,7 @@ public class WakeUpActivity extends Activity {
                         if (cube.isSolved()) {
                             Toast finishMessage = Toast.makeText(getApplicationContext(), "Nice Job!", Toast.LENGTH_SHORT);
                             finishMessage.show();
-                            onDestroy();
+                            finish();
                         }
                         return false;
                 }
@@ -228,7 +229,9 @@ public class WakeUpActivity extends Activity {
     @Override
     protected void onDestroy() {
         stopEvents();
-        finish();
+        AlarmServiceManager.refreshNotifications(WakeUpActivity.this);
+        Intent intent = new Intent(WakeUpActivity.this, MainActivity.class);
+        startActivityForResult(intent, 0);
         super.onDestroy();
     }
 

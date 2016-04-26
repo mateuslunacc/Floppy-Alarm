@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -55,6 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main_edit_menu);
@@ -144,6 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
         timeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
                 TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             boolean firstShown = true;
@@ -162,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     AlarmServiceManager.cancelAlarmService(alarmPosition, SettingsActivity.this, alarm);
                                     AlarmServiceManager.createAlarmService(alarmPosition, SettingsActivity.this, alarm);                                }
                             }
-                        }, 0, 0, is24h);
+                        }, now.get(Calendar.HOUR_OF_DAY) , now.get(Calendar.MINUTE), is24h);
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
             }
@@ -174,6 +178,8 @@ public class SettingsActivity extends AppCompatActivity {
                 AlertDialog.Builder alert = new AlertDialog.Builder(SettingsActivity.this);
                 final EditText edittext = new EditText(SettingsActivity.this);
                 alert.setMessage("Change your alarm label");
+                int maxLabelLength = 25;
+                edittext.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLabelLength)});
                 alert.setView(edittext);
 
                 alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

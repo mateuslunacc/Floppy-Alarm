@@ -12,6 +12,7 @@ import projetoes.com.floppyalarm.utils.AlarmServiceManager;
 import projetoes.com.floppyalarm.utils.PersistenceManager;
 
 public class AlarmReceiver extends BroadcastReceiver {
+    private static final int SNOOZE_REQUEST_CODE = 999;
     private Alarm alarm;
     private Integer alarmPosition;
     private ArrayList<Alarm> alarms;
@@ -23,27 +24,33 @@ public class AlarmReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         alarmPosition = (Integer) extras.get("alarmPosition");
         alarms = PersistenceManager.retrieveAlarms(context);
-        alarm = alarms.get(alarmPosition);
+        if (alarmPosition == SNOOZE_REQUEST_CODE) {
+            alarm = (Alarm) extras.get("alarm");
+        } else {
+            alarm = alarms.get(alarmPosition);
+        }
         if (alarm.isPuzzle()) {
             i = new Intent(context, WakeUpActivity.class);
         } else {
             i = new Intent(context, AlarmDisplayActivity.class);
         }
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putExtra("alarmPosition", alarmPosition);
         i.putExtra("alarm", alarm);
 
-        //verifica se alarme tem repeticoes e cria novo servico para ativar para o proximo dia
-        if (alarm.isRepeat()) {
-            AlarmServiceManager.createAlarmService(alarmPosition, context, alarm);
-        }
-        //se o alarme nao estiver com repeticao ativa ele cancela o alarme e desativa o alarme
-        if (!alarm.isRepeat()) {
-            AlarmServiceManager.cancelAlarmService(alarmPosition, context, alarm);
-            List<Alarm> listAlarm = PersistenceManager.retrieveAlarms(context);
-            alarm.setActive(false);
-            listAlarm.set(alarmPosition, alarm);
-            PersistenceManager.saveAlarms(context, listAlarm);
+        if (alarmPosition != SNOOZE_REQUEST_CODE) {
+            //verifica se alarme tem repeticoes e cria novo servico para ativar para o proximo dia
+            if (alarm.isRepeat()) {
+                AlarmServiceManager.createAlarmService(alarmPosition, context, alarm);
+            }
+            //se o alarme nao estiver com repeticao ativa ele cancela o alarme e desativa o alarme
+            if (!alarm.isRepeat()) {
+                AlarmServiceManager.cancelAlarmService(alarmPosition, context, alarm);
+                List<Alarm> listAlarm = PersistenceManager.retrieveAlarms(context);
+                alarm.setActive(false);
+                listAlarm.set(alarmPosition, alarm);
+                PersistenceManager.saveAlarms(context, listAlarm);
+            }
         }
         AlarmServiceManager.refreshNotifications(context);
         context.startActivity(i);

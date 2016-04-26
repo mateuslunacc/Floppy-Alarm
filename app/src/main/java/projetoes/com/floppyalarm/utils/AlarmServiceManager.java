@@ -22,7 +22,6 @@ import projetoes.com.floppyalarm.R;
 
 public class  AlarmServiceManager {
 
-    private static final int SNOOZE_MINUTES = 5;
     private static Notification notification;
     private static NotificationManager notificationManager;
 
@@ -33,7 +32,7 @@ public class  AlarmServiceManager {
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("alarm", alarm);
         intent.putExtra("alarmPosition", requestCode);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         //checa dia atual e dias do alarme em ordem
         List<Integer> sortedDays = alarm.getSelectedDays();
@@ -118,15 +117,14 @@ public class  AlarmServiceManager {
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("alarm", alarm);
         intent.putExtra("alarmPosition", requestCode);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         alarmMgr.cancel(alarmIntent);
     }
 
-    //inicia um alarme de soneca com 5 minutos a mais
+    //inicia um alarme de soneca
     public static void alarmSnoozeStart(Context context, Alarm alarm, int position) {
-        Alarm snoozeAlarm = new Alarm();
-        snoozeAlarm.setTime(alarm.getHour(), alarm.getMinute() + SNOOZE_MINUTES);
-        createAlarmService(position, context, snoozeAlarm);
+        refreshNotifications(context);
+        createAlarmService(position, context, alarm);
     }
 
     private static void showNotification(Context context) {

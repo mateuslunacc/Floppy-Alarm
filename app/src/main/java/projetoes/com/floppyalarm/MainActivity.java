@@ -1,17 +1,21 @@
 package projetoes.com.floppyalarm;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 import projetoes.com.floppyalarm.utils.PersistenceManager;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //adiciona novo alarme usando o Floating Button
         if(v == fab) {
+            Calendar now = Calendar.getInstance();
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
                         boolean firstShown = true;
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 toast.show();
                             }
                         }
-                    }, 0, 0, DateFormat.is24HourFormat(this));
+                    }, now.get(Calendar.HOUR_OF_DAY) , now.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
             timePickerDialog.setTitle("Select Time");
             timePickerDialog.show();
         }
@@ -81,4 +86,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setAdapter(adapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_tutorial) {
+            Intent intent = new Intent(MainActivity.this, TutorialActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 0) {
+            finish();
+        }
+    }
 }

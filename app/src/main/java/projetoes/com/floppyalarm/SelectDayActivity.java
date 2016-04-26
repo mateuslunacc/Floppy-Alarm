@@ -30,6 +30,7 @@ public class SelectDayActivity extends AppCompatActivity implements CompoundButt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.day_select_menu);

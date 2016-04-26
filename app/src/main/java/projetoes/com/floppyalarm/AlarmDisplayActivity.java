@@ -18,6 +18,8 @@ import projetoes.com.floppyalarm.utils.TimeStringFormat;
 
 public class AlarmDisplayActivity extends AppCompatActivity {
 
+    private static final int SNOOZE_MINUTES = 5;
+    private static final int SNOOZE_REQUEST_CODE = 999;
     private Button btn_snooze;
     private Button btn_dismiss;
     private TextView txt_alarmTime;
@@ -25,7 +27,6 @@ public class AlarmDisplayActivity extends AppCompatActivity {
     private Vibrator vibrator;
     private Alarm alarm;
     private MediaPlayer player;
-    private Integer alarmPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class AlarmDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        alarmPosition = (Integer) extras.get("alarmPosition");
         alarm = extras.getParcelable("alarm");
         setContentView(R.layout.activity_alarm_display);
 
@@ -67,8 +67,9 @@ public class AlarmDisplayActivity extends AppCompatActivity {
         btn_snooze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlarmServiceManager.alarmSnoozeStart(AlarmDisplayActivity.this, alarm, alarmPosition);
-                stopEvents();
+                Alarm snoozeAlarm = alarm;
+                snoozeAlarm.setTime(alarm.getHour(), alarm.getMinute() + SNOOZE_MINUTES);
+                AlarmServiceManager.alarmSnoozeStart(AlarmDisplayActivity.this, snoozeAlarm, SNOOZE_REQUEST_CODE);
                 finish();
             }
         });
@@ -76,7 +77,6 @@ public class AlarmDisplayActivity extends AppCompatActivity {
         btn_dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopEvents();
                 finish();
             }
         });
@@ -96,7 +96,9 @@ public class AlarmDisplayActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         stopEvents();
-        finish();
+        AlarmServiceManager.refreshNotifications(AlarmDisplayActivity.this);
+        Intent intent = new Intent(AlarmDisplayActivity.this, MainActivity.class);
+        startActivityForResult(intent, 0);
         super.onDestroy();
     }
 }

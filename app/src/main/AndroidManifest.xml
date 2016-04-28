@@ -9,12 +9,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,15 +22,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="projetoes.com.floppyalarm.MainActivity"
-            android:launchMode="singleTop"
-            />
+            android:launchMode="singleTop"/>
         <activity android:name=".TutorialActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="projetoes.com.floppyalarm.MainActivity"/>
         <activity android:name=".SelectDayActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="projetoes.com.floppyalarm.SettingsActivity" />
-        <activity android:name=".AlarmDisplayActivity" />
-        <activity android:name=".WakeUpActivity" />
+        <activity android:name=".AlarmDisplayActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WakeUpActivity"
+            android:screenOrientation="portrait"/>
         <receiver
             android:name=".AlarmReceiver"> </receiver>
         <receiver android:name=".BootReceiver" android:enabled="true">

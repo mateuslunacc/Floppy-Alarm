@@ -105,11 +105,12 @@ public class RowAdapter extends BaseAdapter implements ListAdapter {
                                 PersistenceManager.saveAlarms(context, alarmList);
                                 toast.show();
                                 notifyDataSetChanged();
+                                AlarmServiceManager.cancelAlarmService(realPosition, context, selectedAlarm);
+                                AlarmServiceManager.refreshNotifications(context);
                             }
                         })
                         .setNegativeButton("No", null)
                         .show();
-                AlarmServiceManager.cancelAlarmService(realPosition, context, selectedAlarm);
                 return true;
             }
         });
